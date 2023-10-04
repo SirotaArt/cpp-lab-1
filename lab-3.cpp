@@ -7,36 +7,48 @@ int main()
 {
 	int n;
 	cin >> n;
-
 	const int p = 32;
 	int arr[p];
-	for (int i = 0; i < n; i++) 
+	for (int i = 0; i < n; i++)
 	{
 		cin >> arr[i];
 	}
-
+	for (int j = 0; j < n; j++) { //j – начиная с какого номера ищем наименьший
+		int num_min = j; //номер минимального элемента
+		for (int i = j; i < n; i++) { //ищем только в еще не упорядоченной части
+			if (arr[i] < arr[num_min]) {
+				num_min = i;
+			}
+		}
+		//обмен значений элементов a[j] и a[num_min]
+		int temp;
+		temp = arr[j];
+		arr[j] = arr[num_min];
+		arr[num_min] = temp;
+	}
 	cout << sor(arr, n);
 }
 
 int sor(int arr[], int n)
 {
-	int prefix_sum[sizeof(arr)]; 
-	int suffix_sum[sizeof(arr)];
-	prefix_sum[0] = arr[0];
+	int pref[sizeof(arr)];
+	int suf[sizeof(arr)];
+	pref[0] = arr[0];
 
-	for (int i = 1; i < n; i++) {prefix_sum[i] = prefix_sum[i - 1] + arr[i];}
+	for (int i = 1; i < n; i++) { pref[i] = pref[i - 1] + arr[i]; }
 
-	suffix_sum[n - 1] = arr[n - 1];
+	suf[n - 1] = arr[n - 1];
 
-	for (int i = n - 2; i >= 0; i--){suffix_sum[i] = suffix_sum[i + 1] + arr[i];}
+	for (int i = n - 2; i >= 0; i--) { suf[i] = suf[i + 1] + arr[i]; }
 
-	int minDiff = pow(10,8);
+	int minDiff = pow(10, 8);
 
 	for (int i = 0; i < n - 1; i++)
 	{
-		int diff = abs(prefix_sum[i] - suffix_sum[i + 1]);
+		int diff = abs(pref[i] - suf[i+1]);
 
-		if (diff < minDiff) { minDiff = diff;}
+		if (diff < minDiff) { minDiff = diff; }
 	}
 	return minDiff;
+
 }
