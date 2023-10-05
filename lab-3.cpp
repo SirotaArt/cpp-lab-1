@@ -13,14 +13,13 @@ int main()
 	{
 		cin >> arr[i];
 	}
-	for (int j = 0; j < n; j++) { //j – начиная с какого номера ищем наименьший
-		int num_min = j; //номер минимального элемента
-		for (int i = j; i < n; i++) { //ищем только в еще не упорядоченной части
+	for (int j = 0; j < n; j++) { 
+		int num_min = j;
+		for (int i = j; i < n; i++) { 
 			if (arr[i] < arr[num_min]) {
 				num_min = i;
 			}
 		}
-		//обмен значений элементов a[j] и a[num_min]
 		int temp;
 		temp = arr[j];
 		arr[j] = arr[num_min];
