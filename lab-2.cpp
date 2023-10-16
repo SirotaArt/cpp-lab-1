@@ -18,7 +18,7 @@ double t(double x)
 	return (a1 / a2);
 }
 
-double fact(double x) 
+long fact(long x) 
 {
 	if (x <= 0) {
 		return 1;
