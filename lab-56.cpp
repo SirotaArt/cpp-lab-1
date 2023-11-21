@@ -2,90 +2,88 @@
 using namespace std;
 
 
-class Human
+class Zoo
 {
 private:
     string Name;
-    string Gender;
-    string Species;
-    int Old;
     string Country;
-    int IQ;
+    string Species;
+    string Time;
+    int Sale;
+    int Count;
 
 public:
 
-    Human() 
+    Zoo()
     {
-        Name = "Иван";
-        Gender = "M";
-        Species = "Human";
-        Old = 30;
+        Name = "Про100Z00";
         Country = "Russia";
-        IQ = 100;
+        Species = "млекопитающиеся, рептилоиды";
+        Time = "10:00 - 19:00";
+        Sale = 300;
+        Count = 123
     }
 
-    Human(string PersonName, string PersonGender, string PersonSpecies, int PersonOld, string PersonCountry, int PersonIQ)
+    Zoo(string ZooName, string ZooCountry, string ZooSpecies, string ZooTime,  int ZooSale, int ZooCount)
     {
-        Name = PersonName;
-        Gender = PersonGender;
-        Species = PersonSpecies;
-        Old = PersonOld;
-        Country = PersonCountry;
-        IQ = PersonIQ;
+        Name = ZooName;
+        Country = ZooCountry;
+        Species = ZooSpecies;
+        Time = ZooTime;
+        Sale = ZooSale;
+        Count = ZooCount;
     }
 
-    void SetAll(string PersonName, string PersonGender, string PersonSpecies, int PersonOld, string PersonCountry, int PersonIQ)
+    void SetAll(string ZooName, string ZooCountry, string ZooSpecies, string ZooTime, int ZooSale, int ZooCount)
     {
-        Name = PersonName;
-        Gender = PersonGender;
-        Species = PersonSpecies;
-        Old = PersonOld;
-        Country = PersonCountry;
-        IQ = PersonIQ;
+        Name = ZooName;
+        Country = ZooCountry;
+        Species = ZooSpecies;
+        Time = ZooTime;
+        Sale = ZooSale;
+        Count = ZooCount;
     }
 
-    void SetName(string PersonName)
+    void SetName(string ZooName)
     {
-        Name = PersonName;
+        Name = ZooName;
     }
 
-    void SetGender(string PersonGender)
+    void SetCountry(string ZooCountry)
     {
-        Gender = PersonGender;
+        Country = ZooCountry;
     }
 
-    void SetSpecies(string PersonSpecies)
+    void SetSpecies(string ZooSpecies)
     {
-        Species = PersonSpecies;
+        Species = ZooSpecies;
     }
 
-    void SetOld(int PersonOld)
+    void SetTime(string ZooTime)
     {
-        Old = PersonOld;
+        Time = ZooTime;
     }
 
-    void SetCountry(string PersonCountry)
+    void SetSale(int ZooSale)
     {
-        Country = PersonCountry;
+        Sale = ZooSale;
     }
-
-    void SetIQ(int PersonIQ)
+    void SetCount(int ZooCount)
     {
-        IQ = PersonIQ;
+        Count = ZooCount;
     }
 
     void print()
     {
-        cout << "ФИО: " << Name << endl;
-        cout << "Пол: " << Gender << endl;
-        cout << "Раса: " << Species << endl;
-        cout << "Возраст: " << Old << endl;
+        cout << "Название: " << Name << endl;
         cout << "Страна: " << Country << endl;
-        cout << "IQ: " << IQ << endl;
+        cout << "Виды животины: " << Species << endl;
+        cout << "Время работы: " << Time << endl;
+        cout << "Стоимость билета: " << Sale << endl;
         cout << endl;
     }
 
-    ~Human()
+    ~Zoo()
     {
         cout << "Класс отработал" << endl;
     }
@@ -97,10 +95,6 @@ public:
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    Human Person1;
-    Human Person2;
-    Person1.SetAll("Артём", "М", "Human", 19, "Russia", 200);
-    Person1.print();
-    Person2.print();
+    
 
 }
