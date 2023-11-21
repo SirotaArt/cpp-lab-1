@@ -21,7 +21,7 @@ public:
         Species = "млекопитающиеся, рептилоиды";
         Time = "10:00 - 19:00";
         Sale = 300;
-        Count = 123
+        Count = 123;
     }
 
     Zoo(string ZooName, string ZooCountry, string ZooSpecies, string ZooTime,  int ZooSale, int ZooCount)
