@@ -56,4 +56,5 @@ int main()
         cout << l << endl << Petr << endl << k << endl << Mauua;
     }
     system("pause");
+    
 }
