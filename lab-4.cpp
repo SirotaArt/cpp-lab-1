@@ -15,7 +15,7 @@ int main()
     {
         cout << "NO"<<endl;
     }
-
+ 
     else 
     {
         if (n % 4 == 0)
