@@ -4,15 +4,14 @@ using namespace std;
 
 class Zoo
 {
-private:
+public:
+
     string Name;
     string Country;
     string Species;
     string Time;
     int Sale;
     int Count;
-
-public:
 
     Zoo()
     {
@@ -24,7 +23,7 @@ public:
         Count = 123;
     }
 
-    Zoo(string ZooName, string ZooCountry, string ZooSpecies, string ZooTime,  int ZooSale, int ZooCount)
+    Zoo(string ZooName, string ZooCountry, string ZooSpecies, string ZooTime, int ZooSale, int ZooCount)
     {
         Name = ZooName;
         Country = ZooCountry;
@@ -68,6 +67,7 @@ public:
     {
         Sale = ZooSale;
     }
+
     void SetCount(int ZooCount)
     {
         Count = ZooCount;
@@ -83,18 +83,90 @@ public:
         cout << endl;
     }
 
-    ~Zoo()
+   ~Zoo()
     {
-        cout << "Класс отработал" << endl;
+        cout << "Класс отработал" << "\n";
     }
 };
 
+void Osmotr(Zoo object, int n)
+{
+    string s = object.Time;
+    int alltime = int(s[11] - '0') * 10 + int(s[12] - '0') + (int(s[8] - '0') * 10 + int(s[9] - '0')) * 60 - (int(s[3] - '0') * 10 + int(s[4] - '0') + (int(s[0] - '0') * 10 + int(s[1] - '0')) * 60);
+    cout << alltime / n;
+}
 
+void Top(Zoo object[], int n)
+{
+    int* arr = new int[n];
 
+    for (int i = 0; i < n; i++)
+    {
+        arr[i] = (object[i].Sale) / (object[i].Count);
+    }
+
+    for (int j = 0; j < n; j++)  //Сортировка
+    {
+        int num_min = j;
+
+        for (int i = j; i < n; i++)
+        {
+            if (arr[i] < arr[num_min])
+            {
+                num_min = i;
+            }
+        }
+
+        int temp = arr[j];
+        arr[j] = arr[num_min];
+        arr[num_min] = temp;
+        Zoo das = object[j];
+        object[j] = object[num_min];
+        object[num_min] = das;
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        cout << object[i].Name << " " << "\n";
+    }
+
+}
+
+void Zoom(Zoo object[], int n, string x)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (object[i].Country == x)
+        {
+            cout << object[i].Name << "\n";
+        }
+    }
+}
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    
+    Zoo One;
+    Zoo Two;
+    Zoo Tri;
 
+    
+    One.SetName("Птичий Двор");
+    Two.SetName("Кормушка");
+    Tri.SetSale(1000);
+    Two.SetSale(500);
+    Tri.SetCountry("USA");
+    Tri.SetName("AmZoo");
+
+    Zoo allClasses[3];
+    allClasses[0] = One;
+    allClasses[1] = Two;
+    allClasses[2] = Tri;
+
+    Osmotr(One, 5) , cout << "\n";
+    Top(allClasses, 3), cout << "\n";
+    Zoom(allClasses, 3, "Russia"), cout << "\n";
+
+
+    system("pause");
 }
