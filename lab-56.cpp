@@ -23,6 +23,22 @@ public:
         Count = 123;
     }
 
+    Zoo(const Zoo& obj)
+    {
+        Name = obj.Name;
+        Country = obj.Country;
+        Species = obj.Species;
+        Time = obj.Time;
+        Sale = obj.Sale;
+        Count = obj.Count;
+        cout << "Конструктор копирования вызван!" << "\n";
+    }
+
+    ~Zoo()
+    {
+        cout << "Класс отработал" << "\n";
+    }
+
     Zoo(string ZooName, string ZooCountry, string ZooSpecies, string ZooTime, int ZooSale, int ZooCount)
     {
         Name = ZooName;
@@ -81,11 +97,6 @@ public:
         cout << "Время работы: " << Time << endl;
         cout << "Стоимость билета: " << Sale << endl;
         cout << endl;
-    }
-
-   ~Zoo()
-    {
-        cout << "Класс отработал" << "\n";
     }
 };
 
@@ -150,23 +161,24 @@ int main()
     Zoo Two;
     Zoo Tri;
 
-    
+
     One.SetName("Птичий Двор");
     Two.SetName("Кормушка");
     Tri.SetSale(1000);
     Two.SetSale(500);
     Tri.SetCountry("USA");
     Tri.SetName("AmZoo");
-
+   
     Zoo allClasses[3];
     allClasses[0] = One;
     allClasses[1] = Two;
     allClasses[2] = Tri;
 
-    Osmotr(One, 5) , cout << "\n";
+    Osmotr(One, 5), cout << "\n";
     Top(allClasses, 3), cout << "\n";
     Zoom(allClasses, 3, "Russia"), cout << "\n";
-
-
+    Zoo Koop(One);
+    Koop.print();
+    
     system("pause");
 }
