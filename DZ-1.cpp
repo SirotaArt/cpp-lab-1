@@ -1,85 +1,85 @@
 #include <iostream>
 #include <fstream>
-
 using namespace std;
 
 
-class Matriz
+class Matrix
 {
 public:
 
     int** a;
-    int w, l;
+    int height, width; // высота и ширина матрицы соотв.
 
-    Matriz() //Дефолтная 2*2 с нулями
+    Matrix() //Дефолтная 2*2 с нулями
     {
-        w = l = 2;
-        a = new int*[w];
+        height = width = 2;
+        a = new int*[height];
 
-        for (int i = 0; i < l; i++) 
+        for (int i = 0; i < width; i++) 
         {
-            a[i] = new int [l];
+            a[i] = new int [width];
         }
 
-        for (int i = 0; i < w; i++)
+        for (int i = 0; i < height; i++)
         {
-            for (int j = 0; j < l; j++)
+            for (int j = 0; j < width; j++)
             {
                  a[i][j] = 0;
             }
         }
     }  
 
-    Matriz(int sh, int le)  //Можно задать любую sh*le с нулями
+    Matrix(int w, int h)  //Можно задать любую матрицу w*h с нулями
     {
-        w = le;
-        l = sh;
-        a = new int* [w];
+        height = h;
+        width = w;
+        a = new int* [height];
 
-        for (int i = 0; i < w; i++)
+        for (int i = 0; i < height; i++)
         {
-            a[i] = new int[l];
+            a[i] = new int[width];
         }
 
-        for (int i = 0; i < w; i++)
+        for (int i = 0; i < height; i++)
         {
-            for (int j = 0; j < l; j++)
+            for (int j = 0; j < width; j++)
             {
                 a[i][j] = 0;
             }
         }
     }
 
-    void SetNew() //Устанавливаем свою матрицу (изменяем существующую) с заполнением
+    void SetNew() //Устанавливаем свою матрицу (изменяем существующую) с заполнением через консоль
     {
         
-        int n, m;
-        cin >> n;
-        cin >> m;
+        int w, h;
+        cin >> w;
+        cin >> h;
 
-        for (int i = 0; i < w; i++)
+        for (int i = 0; i < height; i++)
         {
-            delete a[i];
-        }
-        w = n;
-        l = m;
-        a = new int* [w];
-
-        for (int i = 0; i < w; i++)
-        {
-            a[i] = new int[l];
+            delete a[i]; //удаляем прошлую матрицу
         }
 
-        for (int i = 0; i < w; i++)
+        height = h;
+        width = w;
+        a = new int* [height];
+
+        for (int i = 0; i < height; i++)
         {
-            for (int j = 0; j < l; j++)
+            a[i] = new int[width];
+        }
+
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
             {
                 cin >> a[i][j];
             }
         }
     }
 
-    void SetFile(string namefile) //Устанавливаем свою матрицу (изменяем существующую) считыванием файла
+    void SetFile(string namefile) //Устанавливаем свою матрицу (изменяем существующую) считыванием из файла
     {
         string path = namefile;
         ifstream fin;
@@ -100,12 +100,14 @@ public:
             {
                 Count++;
             }
+
             cout << "Закрыт" << "\n";
             fin.close();
         }
 
         ifstream fin2;
         fin2.open(path);
+
         if (!fin2.is_open())
         {
             cout << "Ошибка открытия файла" << "\n";
@@ -121,28 +123,29 @@ public:
                 fin2 >> mass[i];
             }
 
-            int n, m;
-            n = mass[0];
-            m = mass[1];
+            int w, h;
+            w = mass[0];
+            h = mass[1];
 
-            for (int i = 0; i < w; i++)
+            for (int i = 0; i < height; i++)
             {
                 delete a[i];
             }
-            w = n;
-            l = m;
-            a = new int* [w];
 
-            for (int i = 0; i < w; i++)
+            height = h;
+            width = w;
+            a = new int* [height];
+
+            for (int i = 0; i < height; i++)
             {
-                a[i] = new int[l];
+                a[i] = new int[width];
             }
 
-            for (int i = 0; i < w; i++)
+            for (int i = 0; i < height; i++)
             {
-                for (int j = 0; j < l; j++)
+                for (int j = 0; j < width; j++)
                 {
-                    a[i][j] = mass[i * 3 + j + 2];
+                    a[i][j] = mass[i * width + j + 2];
                 }
             }
 
@@ -153,7 +156,7 @@ public:
         
     }
 
-    void PrintFile(string namefile)
+    void PrintFile(string namefile) //Запись матрицы в файл
     {
         string path = namefile;
         ofstream fout;
@@ -166,100 +169,121 @@ public:
 
         else
         {
-            for (int i = 0; i < w; i++)
+            for (int i = 0; i < height; i++)
             {
-                for (int j = 0; j < l; j++)
+                for (int j = 0; j < width; j++)
                 {
                     fout << a[i][j] << " ";
                 }
+
                 fout << "\n";
             }
+
             cout << "Записано" << "\n";
         }
 
     }
 
-    void printf()
+    void printf() //Вывод в коносль
     {
-        for (int i = 0; i < w; i++)
+        for (int i = 0; i < height; i++)
         {
-            for (int j = 0; j < l; j++)
+            for (int j = 0; j < width; j++)
             {
                 cout << a[i][j] << " ";
             }
+
             cout << "\n";
         }
     }
    
-    Matriz operator* (const Matriz& D) const
+    Matrix operator* (const Matrix& D) const
     {
-        Matriz A(w, D.l);
-        for (int i = 0; i < D.l; i++)
+        if (D.height != width)
         {
-            for (int j = 0; j < w; j++)
+            cout << "невозможно!";
+        }
+        else
+        {
+            Matrix NewArr(D.width, height);
+
+            for (int i = 0; i < height; i++)
             {
-                A.a[i][j] = 0;
-                for (int k = 0; k < D.w; k++)
+                for (int j = 0; j < D.width; j++)
                 {
-                    A.a[i][j] += a[i][k] * D.a[k][j];
+                    NewArr.a[i][j] = 0;
+
+                    for (int k = 0; k < width; k++)
+                    {
+                        NewArr.a[i][j] += a[i][k] * D.a[k][j];
+                    }
                 }
             }
+            return NewArr;
         }
-        return A;
-
     }
 
-    Matriz operator+ (const Matriz& D) const
+    Matrix operator+ (const Matrix& D) const
     {
-        if (w != D.w || l != D.l)
+        if (height != D.height || width != D.width)
         {
             cout << "Сложение матриц невозможно!";
         }
+
         else
         { 
-            Matriz A(l, w);
-            for (int i = 0; i < w; i++)
-                for (int j = 0; j < l; j++)
-                    A.a[i][j] = a[i][j] + D.a[i][j];
-            return A;
+            Matrix NewArr(width, height);
+
+            for (int i = 0; i < height; i++)
+                for (int j = 0; j < width; j++)
+                    NewArr.a[i][j] = a[i][j] + D.a[i][j];
+
+            return NewArr;
         }
     }
 
-    Matriz operator- (const Matriz& D) const
+    Matrix operator- (const Matrix& D) const
     {
-        if (w != D.w || l != D.l)
+        if (height != D.height || width != D.width)
         {
             cout << "Вычитание матриц невозможно!";
         }
+
         else
         {
-            Matriz A(l, w);
-            for (int i = 0; i < w; i++)
-                for (int j = 0; j < l; j++)
-                    A.a[i][j] = a[i][j] - D.a[i][j];
-            return A;
+            Matrix NewArr(width, height);
+
+            for (int i = 0; i < height; i++)
+                for (int j = 0; j < width; j++)
+                    NewArr.a[i][j] = a[i][j] - D.a[i][j];
+
+            return NewArr;
         }
     }
 
-    bool operator== (const Matriz& D) const
+    bool operator== (const Matrix& D) const  //Выводит '1' - true и '0' - false
     {
-        if (w != D.w || l != D.l)
+        if (height != D.height || width != D.width)
         {
             return false;
         }
+
         else
         {
             int f = 1;
-            for (int i = 0; i < w; i++)
-                for (int j = 0; j < l; j++)
+
+            for (int i = 0; i < height; i++)
+                for (int j = 0; j < width; j++)
                     if (a[i][j] != D.a[i][j])
                     {
                         f = 0;
                     }
+
             if (f == 1)
             {
                 return true;
             }
+
             else
             {
                 return false;
@@ -268,25 +292,29 @@ public:
 
     }
 
-    bool operator!= (const Matriz& D) const
+    bool operator!= (const Matrix& D) const //Выводит '1' - true и '0' - false
     {
-        if (w != D.w || l != D.l)
+        if (height != D.height || width != D.width)
         {
             return true;
         }
+
         else
         {
             int f = 1;
-            for (int i = 0; i < w; i++)
-                for (int j = 0; j < l; j++)
+
+            for (int i = 0; i < height; i++)
+                for (int j = 0; j < width; j++)
                     if (a[i][j] != D.a[i][j])
                     {
                         f = 0;
                     }
+
             if (f == 1)
             {
                 return false;
             }
+
             else
             {
                 return true;
@@ -294,76 +322,162 @@ public:
         }
     }
 
-    void FirstStr(int c, float k)
+    void FirstStr(int numStr, float k) //Умножение строки на число
     {
-        for (int i = 0; i < l; i++)
+        for (int i = 0; i < width; i++)
         {
-            a[c-1][i] = a[c-1][i] * k;
+            a[numStr - 1][i] = a[numStr - 1][i] * k;
         }
     }
 
-    void FirstSb(int c, float k)
+    void FirstSb(int numSb, float k) //Умножение столбца на число
     {
-        for (int i = 0; i < w; i++)
+        for (int i = 0; i < height; i++)
         {
-            a[i][c - 1] = a[i][c - 1] * k;
+            a[i][numSb - 1] = a[i][numSb - 1] * k;
         }
     }
 
-    void SecStr(int c, int k)
+    void SecStr(int numStr1, int numStr2) //Переставновка двух строк
     {
         int t;
-        for (int i = 0; i < l; i++)
+
+        for (int i = 0; i < width; i++)
         {
-            t = a[c - 1][i];
-            a[c - 1][i] = a[k - 1][i];
-            a[k - 1][i] = t;
+            t = a[numStr1 - 1][i];
+            a[numStr1 - 1][i] = a[numStr2 - 1][i];
+            a[numStr2 - 1][i] = t;
         }
     }
 
-    void SecSb(int c, int k)
+    void SecSb(int numSb1, int numSb2) //Переставновка двух столбцов
     {
         int t;
-        for (int i = 0; i < w; i++)
+
+        for (int i = 0; i < height; i++)
         {
-            t = a[i][c - 1];
-            a[i][c - 1] = a[i][k - 1];
-            a[i][k - 1] = t;
+            t = a[i][numSb1 - 1];
+            a[i][numSb1 - 1] = a[i][numSb2 - 1];
+            a[i][numSb2 - 1] = t;
         }
     }
 
-    void ThStr(int c, int k, int g)
+    void ThStr(int numStr1, int numStr2, float k) //Прибавление к одной строки другой, домноженной на число
     {
-        for (int i = 0; i < l; i++)
+        for (int i = 0; i < width; i++)
         {
-            a[c - 1][i] = a[c - 1][i] + a[k - 1][i] * g;
+            a[numStr1 - 1][i] = a[numStr1 - 1][i] + a[numStr2 - 1][i] * k;
         }
     }
 
-    void ThSb(int c, int k, int g)
+    void ThSb(int numSb1, int numSb2, int k)    //Прибавление к одному столбцу другого, домноженного на число
     {
-        for (int i = 0; i < w; i++)
+        for (int i = 0; i < height; i++)
         {
-            a[i][c - 1] = a[i][c - 1] + a[i][k - 1] * g;
+            a[i][numSb1 - 1] = a[i][numSb1 - 1] + a[i][numSb2 - 1] * k;
         }
     }
+
+    
 };
+
+double Det(int** a, int height, int width) //Функция по поиску определителя
+{
+    if (height!= width)
+    {
+        cout << "Невозможно!";
+    }
+    else 
+    {
+        if (height == 2)
+        {
+            return (a[0][0] * a[1][1] - a[0][1] * a[1][0]);
+        }
+
+        else if (height == 1)
+        {
+            return a[0][0];
+        }
+
+        else if (height >= 3)
+        {
+            int** t;
+            t = new int* [height - 1];
+
+            for (int i = 0; i < height - 1; i++)
+            {
+                t[i] = new int[height - 1];
+            }
+
+            double det = 0;
+            int x, y;
+
+            for (int j = 0; j < height; j++)
+            {
+                x = 0;
+
+                for (int k = 1; k < height; k++)
+                {
+                    y = 0;
+
+                    for (int s = 0; s < height; s++)
+                    {
+                        if (s != j)
+                        {
+                            t[x][y] = a[k][s];
+                            y++;
+                        }
+                    }
+
+                    x++;
+                }
+
+                det += pow(-1, (double)j + 2) * a[0][j] * Det(t, height - 1, height - 1);
+            }
+
+            return det;
+        }
+    }
+    
+}
 
 
 int main()
 {
-    setlocale(LC_ALL, "ru");
+    setlocale(LC_ALL, "ru"); //русификатор для консоли
 
-    Matriz Two;
-    Matriz One;
-    Matriz Thr;
+    Matrix A;
+    Matrix B;
+    Matrix C;
 
-    One.SetNew();
-    One.printf();
+    //A.printf();
+    //Matrix B(3, 5);
+    //B.printf();
 
-    One.ThSb(2, 3, 2);
-    One.printf();
-    system("pause");
+    //A.SetNew();
+    //A.printf();
 
+    //A.SetFile("myFile.txt");
+    //A.printf();
+    //A.PrintFile("NomyFile.txt");
+
+    A.SetNew();
+    //B.SetNew();
+    //C = (A - B);
+    //C.printf();
+    //cout << (A != B);
+
+    //A.FirstStr(1, 2);
+    //A.FirstSb(1, 2);
+    //A.SecStr(1, 2);
+    //A.SecSb(1, 2);
+    //A.ThStr(1, 2, 2);
+    //A.ThSb(1, 2, 2);
+    //A.printf();
+    cout << Det(A.a, A.height, A.width);
+
+   
+
+    system("pause"); //чтобы консоль не пропадала
 }
 
