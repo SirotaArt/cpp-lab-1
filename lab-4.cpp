@@ -13,7 +13,7 @@ int main()
 
     if (n % 4 ==1   || n % 4 == 2)
     {
-        cout << "NO"<<endl;
+        cout << "NO" << endl;
     }
  
     else 
