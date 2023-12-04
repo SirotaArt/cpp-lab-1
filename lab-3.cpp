@@ -1,39 +1,6 @@
 #include <iostream>
 #include <cmath>
 using namespace std;
-int sor(int arr[], int n);
-
-int main()
-{
-	int n;
-	cin >> n;
-	int* arr = new int[n];
-
-	for (int i = 0; i < n; i++)    // Ввод чисел
-	{
-		cin >> arr[i];
-	}
-
-	for (int j = 0; j < n; j++)  //Сортировка
-	{
-		int num_min = j;
-
-		for (int i = j; i < n; i++)
-		{
-			if (arr[i] < arr[num_min])
-			{
-				num_min = i;
-			}
-		}
-
-		int temp;
-		temp = arr[j];
-		arr[j] = arr[num_min];
-		arr[num_min] = temp;
-	}
-
-	cout << sor(arr, n);
-}
 
 int sor(int arr[], int n)
 {
@@ -66,6 +33,8 @@ int sor(int arr[], int n)
 				minDiff = diff;
 			}
 		}
+		delete [] pref;
+		delete [] suf;
 		return minDiff;
 	}
 
@@ -92,4 +61,36 @@ int sor(int arr[], int n)
 		return minDiff;
 	}
 
+}
+
+int main()
+{
+	int n;
+	cin >> n;
+	int* arr = new int[n];
+
+	for (int i = 0; i < n; i++)    // Ввод чисел
+	{
+		cin >> arr[i];
+	}
+
+	for (int j = 0; j < n; j++)  //Сортировка
+	{
+		int num_min = j;
+
+		for (int i = j; i < n; i++)
+		{
+			if (arr[i] < arr[num_min])
+			{
+				num_min = i;
+			}
+		}
+
+		int temp;
+		temp = arr[j];
+		arr[j] = arr[num_min];
+		arr[num_min] = temp;
+	}
+
+	cout << sor(arr, n);
 }
