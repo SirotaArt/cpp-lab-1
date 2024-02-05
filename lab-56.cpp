@@ -34,11 +34,6 @@ public:
         cout << "Конструктор копирования вызван!" << "\n";
     }
 
-    ~Zoo()
-    {
-        cout << "Класс отработал" << "\n";
-    }
-
     Zoo(string ZooName, string ZooCountry, string ZooSpecies, string ZooTime, int ZooSale, int ZooCount)
     {
         Name = ZooName;
@@ -97,6 +92,11 @@ public:
         cout << "Время работы: " << Time << endl;
         cout << "Стоимость билета: " << Sale << endl;
         cout << endl;
+    }
+
+    ~Zoo()
+    {
+        cout << "Класс отработал" << "\n";
     }
 };
 
